@@ -1,15 +1,10 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Build Cheat
 
 on:
-    push:
-        branches: [ "main" ]
-    pull_request:
-        branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 permissions: write-all
 
@@ -20,7 +15,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-  
+
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
@@ -29,7 +24,23 @@ jobs:
 
     - name: Build
       run: msbuild -p:Configuration="Release" -p:Platform="x64"
-    
+
+    - name: Install GitHub CLI
+      run: |
+        choco install gh
+
+    - name: Authenticate GitHub CLI
+      run: |
+        gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Delete existing release
+      run: |
+        release_id=$(gh release view x64 --json id --jq '.id' || echo "")
+        if [ ! -z "$release_id" ]; then
+          gh release delete x64 -y
+          gh api -X DELETE /repos/${{ github.repository }}/git/refs/tags/x64
+        fi
+
     - name: Release
       id: release
       uses: actions/create-release@v1.1.4
@@ -38,6 +49,7 @@ jobs:
       with:
         tag_name: x64
         release_name: SCS2 Release
+
     - name: Upload PE
       uses: actions/upload-release-asset@v1
       env:
@@ -46,5 +58,4 @@ jobs:
         upload_url: ${{ steps.release.outputs.upload_url }}
         asset_path: ./x64/Release/scs2.exe
         asset_name: SCS2.exe
-        asset_content_type: application/exe
-        
+        asset_content_type: application/exe        
