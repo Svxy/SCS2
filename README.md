@@ -10,7 +10,7 @@ Welcome to **Sneaky's CS2 Menu (SCS2)**
 
 A unique and innovative tool designed to enhance your gaming experience in [Counter-Strike 2 (CS2)](https://store.steampowered.com/app/730). My menu is designed to be sleek and user friendly, and is engineered to be semi-external, minimizing detection risk while providing a suite of essential features to win every game!
 
-<b><a href=''>Download</a> today!</b>
+<b><a href='https://github.com/Svxy/SCS2/releases/download/2/SCS2.exe'>Download</a> today!</b>
 
 </div>
 
