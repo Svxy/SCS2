@@ -1,0 +1,12 @@
+External*Dependecies\
+scs2/
+Debug/
+x64/
+.vs/
+.git/
+
+imgui.ini
+
+buttons.json
+client.dll.json
+offsets.json
