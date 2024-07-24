@@ -26,20 +26,20 @@ jobs:
       run: msbuild -p:Configuration="Release" -p:Platform="x64"
 
     - name: Install GitHub CLI
-      run: |
-        choco install gh
+      run: choco install gh
 
     - name: Authenticate GitHub CLI
-      run: |
-        gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
+      run: gh auth login --with-token
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Delete existing release
       run: |
-        release_id=$(gh release view x64 --json id --jq '.id' || echo "")
-        if [ ! -z "$release_id" ]; then
+        $release_id = gh release view x64 --json id --jq ".id" || echo ""
+        if ($release_id) {
           gh release delete x64 -y
           gh api -X DELETE /repos/${{ github.repository }}/git/refs/tags/x64
-        fi
+        }
 
     - name: Release
       id: release
@@ -58,4 +58,4 @@ jobs:
         upload_url: ${{ steps.release.outputs.upload_url }}
         asset_path: ./x64/Release/scs2.exe
         asset_name: SCS2.exe
-        asset_content_type: application/exe        
+        asset_content_type: application/exe
