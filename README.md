@@ -6,11 +6,11 @@
 [![CS2](https://img.shields.io/badge/game-CS2-yellow.svg?style=plastic)](https://store.steampowered.com/app/730)
 [![License](https://img.shields.io/badge/License-GPL3.0-green.svg?style=plastic)](https://github.com/svxy/scs2/blob/main/LICENSE)
 
-Welcome to **Sneaky's CS2 Menu (SCS2)**
+Welcome to **Sneaky's CS2 Menu (<a href='https://scs2.tnyavnto.com/'>SCS2</a>)**
 
 A unique and innovative tool designed to enhance your gaming experience in [Counter-Strike 2 (CS2)](https://store.steampowered.com/app/730). My menu is designed to be sleek and user friendly, and is engineered to be semi-external, minimizing detection risk while providing a suite of essential features to win every game!
 
-<b><a href='https://github.com/Svxy/SCS2/releases/download/2/SCS2.exe'>Download</a> today!</b>
+<b><a href='https://github.com/Svxy/SCS2/releases/download/x64/SCS2.exe'>Download</a> today!</b>
 
 </div>
 
