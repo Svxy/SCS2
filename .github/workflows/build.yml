@@ -25,21 +25,46 @@ jobs:
     - name: Build
       run: msbuild -p:Configuration="Release" -p:Platform="x64"
 
-    - name: Install GitHub CLI
-      run: choco install gh
-
-    - name: Authenticate GitHub CLI
-      run: gh auth login --with-token
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Delete existing release
-      run: |
-        $release_id = gh release view x64 --json id --jq ".id" || echo ""
-        if ($release_id) {
-          gh release delete x64 -y
-          gh api -X DELETE /repos/${{ github.repository }}/git/refs/tags/x64
-        }
+    - name: Delete Existing Release
+      id: delete_release
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const owner = context.repo.owner;
+          const repo = context.repo.repo;
+          const tag = "x64";
+    
+          // List all releases and find the release by tag
+          const releases = await github.rest.repos.listReleases({
+            owner: owner,
+            repo: repo,
+          });
+    
+          const release = releases.data.find(release => release.tag_name === tag);
+    
+          // Check if the release exists and delete it
+          if (release) {
+            await github.rest.repos.deleteRelease({
+              owner: owner,
+              repo: repo,
+              release_id: release.id,
+            });
+            console.log(`Deleted release with ID ${release.id}`);
+          } else {
+            console.log("No existing release to delete");
+          }
+    
+          // Delete the tag
+          try {
+            await github.rest.git.deleteRef({
+              owner: owner,
+              repo: repo,
+              ref: `tags/${tag}`,
+            });
+            console.log(`Deleted tag ${tag}`);
+          } catch (error) {
+            console.error(`Error deleting tag: ${error.message}`);
+          }
 
     - name: Release
       id: release
