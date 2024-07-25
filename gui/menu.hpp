@@ -3,12 +3,12 @@
 #include "../imgui/imgui.h"
 
 namespace imGuiMenu {
-	inline float WIDTH = 650.f;
-	inline float HEIGHT = 720.f;
+	inline float WIDTH = 800.f;
+	inline float HEIGHT = 800.f;
 
 	inline int tabCount = 1;
 
-	inline float areaSeparatorSpace = 8.f;
+	inline float areaSeparatorSpace = 6.f;
 	inline float textSeparatorSpace = 4.f;
 	inline float widthSeparatorInt = WIDTH / 2;
 	inline float heightSeparatorInt = HEIGHT / 2 + 20;
