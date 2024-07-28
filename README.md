@@ -104,6 +104,6 @@ Copy the fonts folder to the same location as `SCS2.exe`.
 <img src='img/preview.png' width='720' alt='Preview'>
 <img src='img/preview2.png' width='720' alt='Preview'>
 <img src='img/preview3.png' width='720' alt='Preview'>
-<img src='img/preview4.gif' width='720' alt='Preview'>
+<img src='https://github.com/Svxy/imgs/blob/main/scs2/preview4.gif?raw=true' width='720' alt='Preview'>
 
 </details>
