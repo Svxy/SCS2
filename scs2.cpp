@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <thread>
 #include <chrono>
+#include <string>
 
 #include "util/config.hpp"
 #include "gui/overlay.hpp"
@@ -14,30 +15,55 @@ LRESULT Wndproc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		return 0;
 	}
 	switch (msg) {
-		case WM_SYSCOMMAND: {
-			if ((wParam & 0xfff0) == SC_KEYMENU)
-				return 0;
-			break;
-		}
-
-		case WM_DESTROY: {
-			PostQuitMessage(0);
+	case WM_SYSCOMMAND: {
+		if ((wParam & 0xfff0) == SC_KEYMENU)
 			return 0;
-		}
+		break;
+	}
+
+	case WM_DESTROY: {
+		PostQuitMessage(0);
+		return 0;
+	}
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
+void printProgressBar(HANDLE hConsole, int percent) {
+	const int barWidth = 50;
+	std::string bar = "[";
+	int pos = barWidth * percent / 100;
+	for (int i = 0; i < barWidth; ++i) {
+		if (i < pos) bar += "=";
+		else if (i == pos) bar += ">";
+		else bar += " ";
+	}
+	bar += "]";
+	SetConsoleTextAttribute(hConsole, 14);
+	printf("\r%s %d%%", bar.c_str(), percent);
+	fflush(stdout);
+}
+
+void printHeader(HANDLE hConsole) {
+	SetConsoleTextAttribute(hConsole, 11);
+	printf("\n===========================\n");
+	printf("  Sneaky's CS2 Menu (SCS2)  \n");
+	printf("===========================\n\n");
+	SetConsoleTextAttribute(hConsole, 7);
+}
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	printHeader(hConsole);
+
 	// Memory and game related vars (used in entry and passed through overlay)
 	int procId = MemMan.getPid(L"cs2.exe");
 	SetConsoleTextAttribute(hConsole, 9);
 	if (procId == 0)
-		printf("[MemMan] Waiting For Counter Strike 2\n");
+		printf("[MemMan] Waiting For Counter Strike 2 to launch...\n");
 	while (procId == 0) {
 		procId = MemMan.getPid(L"cs2.exe");
 		std::this_thread::sleep_for(std::chrono::milliseconds(1500));
@@ -57,7 +83,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		config::create();
 		config::save();
 	}
-	
+
+	// simulate progress for config load - will implement actual functionality for each step eventually but im going to bed
+	for (int i = 0; i <= 100; i += 20) {
+		printProgressBar(hConsole, i);
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+	}
+	printf("\n");
+
 	SetConsoleTextAttribute(hConsole, 9);
 	printf("[scs2.cpp] Getting addresses...\n");
 	MemoryManagement::moduleData client;
@@ -69,7 +102,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		std::this_thread::sleep_for(std::chrono::milliseconds(1500));
 	}
 	SetConsoleTextAttribute(hConsole, 10);
-	printf("[scs2.cpp] Addresses found succesfully!\n");
+	printf("[scs2.cpp] Addresses found successfully!\n");
 
 	SetConsoleTextAttribute(hConsole, 9);
 	printf("[scs2.cpp] Creating overlay...\n");

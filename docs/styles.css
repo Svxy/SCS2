@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+}
 
 .bg-dark-red {
     background-color: #450a0a;
@@ -5,6 +10,12 @@
 
 .text-dark-red {
     color: #d9534f;
+    text-decoration: underline;
+    text-underline-offset: 0.35rem;
+}
+
+a.text-dark-red {
+    color: #ff3333;
 }
 
 .bg-dark-overlay {
@@ -34,7 +45,7 @@
 }
 
 .list-unstyled a {
-    color: #f8f9fa;
+    color: #d9534f;
 }
 
 .list-unstyled a:hover {
@@ -60,4 +71,60 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.terminal {
+    background-color: #403434;
+    color: #cccccc;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: 'Courier Prime', 'Courier New', Courier, monospace;
+    position: relative;
+    margin-top: 12px;
+    margin-bottom: 15px;
+}
+
+.terminal::before {
+    content: "bash";
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 12px;
+}
+
+.command {
+    color: #14a800;
+}
+
+.copy-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.copy-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: #cccccc;
+    transition: fill 0.3s ease;
+}
+
+.copy-btn:hover svg {
+    fill: #ffffff;
+}
+
+.copy-btn.copied svg {
+    fill: #4CAF50;
+}
+
+.offsets-note {
+    font-size: 14px;
+    max-width: 340px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
 }
