@@ -5,6 +5,7 @@
 [![C++](https://img.shields.io/badge/language-C%2B%2B-%23f34b7d.svg?style=plastic)](https://en.wikipedia.org/wiki/C%2B%2B)
 [![CS2](https://img.shields.io/badge/game-CS2-yellow.svg?style=plastic)](https://store.steampowered.com/app/730)
 [![License](https://img.shields.io/badge/License-GPL3.0-green.svg?style=plastic)](https://github.com/svxy/scs2/blob/main/LICENSE)
+[![Downloads](https://img.shields.io/github/downloads/svxy/SCS2/x64/total?plastic&logo=github)](https://github.com/Svxy/SCS2/releases/download/x64/SCS2.exe)
 
 Welcome to **Sneaky's CS2 Menu (<a href='https://scs2.tnyavnto.com/'>SCS2</a>)**
 
