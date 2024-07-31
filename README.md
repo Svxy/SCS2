@@ -36,7 +36,7 @@ Press Build solution, and you should receive an **SCS2.exe** file at `SCS2/x64/R
 
 ### Update CS2 Offsets (2 Methods)
 1. Run `updateoffsets.cmd` in the same folder as `SCS2.exe`
-2. Manually update from [a2x's repo](https://github.com/a2x/cs2-dumper/blob/main/output) and download: `buttons.json`, `offsets.json`, `client.dll.json`.
+2. Manually update from [a2x's repo](https://github.com/a2x/cs2-dumper/blob/main/output) and download: `buttons.json`, `offsets.json`, `client_dll.json`.
 
 ### Run
 1. Run `SCS2.exe` from the release path.
